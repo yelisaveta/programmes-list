@@ -16,6 +16,7 @@
     vm.programmesPerPage = 10;
     vm.programmesTotal = 0;
     vm.currentPage = 1;
+    vm.imageSize = '192x108';
 
     vm.selectTab = selectTab;
     vm.loadProgrammesList = loadProgrammesList;

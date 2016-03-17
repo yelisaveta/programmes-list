@@ -1,4 +1,4 @@
-<div>
+<div class="programmes-list">
     <h3>Programmes List</h3>
 
     <ul class="nav nav-pills">
@@ -11,7 +11,9 @@
         <dt dir-paginate-start="programm in lc.programmes | itemsPerPage: lc.programmesPerPage" total-items="lc.programmesTotal" current-page="lc.currentPage">
             {{programm.title}}
         </dt>
-        <dd dir-paginate-end>Image</dd>
+        <dd dir-paginate-end>
+            <img ng-src="{{programm.images.standard | imageUrl:lc.imageSize }}" class="img-rounded">
+        </dd>
     </dl>
 
     <dir-pagination-controls on-page-change="lc.changePage(newPageNumber)"></dir-pagination-controls>

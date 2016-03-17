@@ -67,6 +67,9 @@
 
         expect(ctrl.currentPage).toBeDefined();
         expect(ctrl.currentPage).toEqual(1);
+
+        expect(ctrl.imageSize).toBeDefined();
+        expect(ctrl.imageSize).toEqual('192x108');
       });
 
       it("should initially set selected tab to 'a'", function() {
