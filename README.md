@@ -4,8 +4,7 @@ to run the app:
  - git clone
  - cd programmes-list
  - npm install
- - bower install
- - open index.html in browser
+ - npm start
 
 to run tests:
  - npm test
