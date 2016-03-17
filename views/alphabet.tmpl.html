@@ -8,11 +8,11 @@
     </ul>
 
     <dl>
-        <dt dir-paginate-start="programm in lc.programmes | itemsPerPage: lc.programmesPerPage" total-items="lc.programmesTotal">
+        <dt dir-paginate-start="programm in lc.programmes | itemsPerPage: lc.programmesPerPage" total-items="lc.programmesTotal" current-page="lc.currentPage">
             {{programm.title}}
         </dt>
         <dd dir-paginate-end>Image</dd>
     </dl>
 
-    <dir-pagination-controls></dir-pagination-controls>
+    <dir-pagination-controls on-page-change="lc.changePage(newPageNumber)"></dir-pagination-controls>
 </div>

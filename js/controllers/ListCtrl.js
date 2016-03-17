@@ -15,9 +15,11 @@
     vm.programmes = [];
     vm.programmesPerPage = 10;
     vm.programmesTotal = 0;
+    vm.currentPage = 1;
 
     vm.selectTab = selectTab;
     vm.loadProgrammesList = loadProgrammesList;
+    vm.changePage = changePage;
 
     activate();
 
@@ -27,12 +29,19 @@
 
     function selectTab(tab) {
       vm.selectedTab = tab;
+      vm.currentPage = 1;
       loadProgrammesList();
     }
 
-    function loadProgrammesList() {
+    function loadProgrammesList(pageNumber) {
       var baseApiUrl = "https://ibl.api.bbci.co.uk/ibl/v1/atoz/";
-      $http.get(baseApiUrl + vm.selectedTab + "/programmes")
+      var url = baseApiUrl + vm.selectedTab + "/programmes";
+      if (pageNumber) {
+        url += "?page=" + pageNumber;
+        vm.currentPage = pageNumber;
+      }
+
+      $http.get(url)
         .then(function(response) {
           updateParametersOnResponse(response);
         });
@@ -52,6 +61,10 @@
 
         vm.programmesTotal = result.count;
       }
+    }
+
+    function changePage(pageNumber) {
+      loadProgrammesList(pageNumber);
     }
   }
 

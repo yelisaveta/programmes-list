@@ -64,6 +64,9 @@
 
         expect(ctrl.programmesTotal).toBeDefined();
         expect(ctrl.programmesTotal).toEqual(0);
+
+        expect(ctrl.currentPage).toBeDefined();
+        expect(ctrl.currentPage).toEqual(1);
       });
 
       it("should initially set selected tab to 'a'", function() {
@@ -98,7 +101,6 @@
 
       it("should send HTTP request to load programmes", function() {
         httpBackend.expectGET(apiBaseUrl + "/a/programmes");
-        ctrl.loadProgrammesList();
         httpBackend.flush();
       });
 
@@ -107,12 +109,10 @@
         ctrl.selectTab(tab);
 
         httpBackend.expectGET(apiBaseUrl + "/b/programmes");
-        ctrl.loadProgrammesList();
         httpBackend.flush();
       });
 
       it("should set list of programmes in controller", function() {
-        ctrl.loadProgrammesList();
         httpBackend.flush();
 
         expect(ctrl.programmes).toBeDefined();
@@ -120,7 +120,6 @@
       });
 
       it("should set number of programmes per page in controller", function() {
-        ctrl.loadProgrammesList();
         httpBackend.flush();
 
         expect(ctrl.programmesPerPage).toBeDefined();
@@ -128,7 +127,6 @@
       });
 
       it("should set total number of programmes in controller", function() {
-        ctrl.loadProgrammesList();
         httpBackend.flush();
 
         expect(ctrl.programmesTotal).toBeDefined();
@@ -144,6 +142,66 @@
         httpBackend.flush();
       });
 
+    });
+
+    describe("pagination", function() {
+
+      it("should have a method to change page", function() {
+        httpBackend.flush();
+
+        expect(ctrl.changePage).toBeDefined();
+        expect(typeof ctrl.changePage).toEqual("function");
+      });
+
+      it("should send request with specified page number", function() {
+        var pageNumber = 5;
+        ctrl.changePage(pageNumber);
+
+        httpBackend.expectGET(apiBaseUrl + "/a/programmes?page=" + pageNumber);
+        httpBackend.flush();
+      });
+
+      it("should update controller data", function() {
+        var pageNumber = 5;
+        httpBackend.expectGET(apiBaseUrl + "/a/programmes?page=" + pageNumber).respond({
+          atoz_programmes: {
+            character: "a",
+            count: 1,
+            page: 1,
+            per_page: 15,
+            elements: [{
+              title: "My Programm Title"
+            }]
+          }
+        });
+
+        ctrl.changePage(pageNumber);
+        httpBackend.flush();
+
+        expect(ctrl.programmes).toEqual([{
+          title: "My Programm Title"
+        }]);
+        expect(ctrl.programmesPerPage).toEqual(15);
+        expect(ctrl.programmesTotal).toEqual(1);
+      });
+
+      it("should update current page number when changing page", function() {
+        var pageNumber = 3;
+        ctrl.changePage(pageNumber);
+        httpBackend.flush();
+
+        expect(ctrl.currentPage).toEqual(3);
+      });
+
+      it("should set current page number to 1 when selecting new tab", function() {
+        var pageNumber = 4;
+        ctrl.changePage(pageNumber);
+
+        ctrl.selectTab("y");
+        httpBackend.flush();
+
+        expect(ctrl.currentPage).toEqual(1);
+      });
     });
   });
 }());
