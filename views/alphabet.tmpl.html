@@ -2,6 +2,14 @@
     <h3>Programmes List</h3>
 
     <ul class="nav nav-pills">
-        <li role="presentation" ng-repeat="letter in lc.alphabet"><a href="#">{{letter | uppercase}}</a></li>
+        <li role="presentation" ng-repeat="letter in lc.alphabet" ng-class="(lc.selectedTab === letter) ? 'active' : ''">
+            <a href="#" ng-click="lc.selectTab(letter)">{{letter | uppercase}}</a>
+        </li>
     </ul>
+
+    <dl>
+        <dt ng-repeat-start="programm in lc.programmes">{{programm.title}}</dt>
+        <dd ng-repeat-end>Image</dd>
+    </dl>
+
 </div>
