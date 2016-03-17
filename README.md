@@ -1,7 +1,7 @@
 # programmes-list
 
 to run the app:
- - git clone
+ - git clone https://github.com/yelisaveta/programmes-list.git
  - cd programmes-list
  - npm install
  - npm start
