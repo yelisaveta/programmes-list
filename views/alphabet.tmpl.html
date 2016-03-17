@@ -8,8 +8,11 @@
     </ul>
 
     <dl>
-        <dt ng-repeat-start="programm in lc.programmes">{{programm.title}}</dt>
-        <dd ng-repeat-end>Image</dd>
+        <dt dir-paginate-start="programm in lc.programmes | itemsPerPage: lc.programmesPerPage" total-items="lc.programmesTotal">
+            {{programm.title}}
+        </dt>
+        <dd dir-paginate-end>Image</dd>
     </dl>
 
+    <dir-pagination-controls></dir-pagination-controls>
 </div>

@@ -3,7 +3,7 @@
 (function (angular) {
   angular
     .module("ProgrammesListApp")
-    .controller('ListCtrl', Controller)
+    .controller("ListCtrl", Controller)
   ;
 
   Controller.$inject = ["$http"];

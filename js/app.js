@@ -2,6 +2,6 @@
 
 (function (angular) {
 
-  angular.module('ProgrammesListApp', []);
+  angular.module("ProgrammesListApp", ["angularUtils.directives.dirPagination"]);
 
 }(angular));
